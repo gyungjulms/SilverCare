@@ -1,0 +1,4 @@
+오류: 기본 클래스 JpasilverApplication을(를) 찾거나 로드할 수 없습니다.
+원인: java.lang.NoClassDefFoundError: kr/onthelive/silver/JpasilverApplication (wrong name: JpasilverApplication)
+오류: 기본 클래스 JpasilverApplication을(를) 찾거나 로드할 수 없습니다.
+원인: java.lang.NoClassDefFoundError: kr/onthelive/silver/JpasilverApplication (wrong name: JpasilverApplication)
