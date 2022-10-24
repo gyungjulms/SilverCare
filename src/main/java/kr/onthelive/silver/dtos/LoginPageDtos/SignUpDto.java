@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class SignUpDto implements Serializable {
-    private String userId;
+    private String accountId;
     private String accountPassword;
     private String accountName;
 }

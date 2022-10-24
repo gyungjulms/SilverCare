@@ -33,7 +33,7 @@ public class LoginController {
     @PostMapping("/login")
     public LoginResponseDto canLogin(@RequestBody @NonNull @Valid LoginDto loginDto) {
 //        MemberAccountDto accountDto = new MemberAccountDto();
-        Account account = accountRepository.findByUserId(loginDto.getUserId());
+        Account account = accountRepository.findByAccountId(loginDto.getAccountId());
         LoginResponseDto loginResponseDto = new LoginResponseDto();
 
         if (account == null) {
@@ -42,7 +42,7 @@ public class LoginController {
         }
         else if (account.getAccountPassword().equals(loginDto.getAccountPassword())) {
             loginResponseDto = loginResponseMapper.accountToLoginResponseDto(account);
-            loginResponseDto.setJwtToken(JwtTokenProvider.generateToken(account.getUserId(),account.getAccountRole()));
+            loginResponseDto.setJwtToken(JwtTokenProvider.generateToken(account.getAccountId(),account.getAccountRole()));
             loginResponseDto.setResult("success");
             return loginResponseDto;
         }

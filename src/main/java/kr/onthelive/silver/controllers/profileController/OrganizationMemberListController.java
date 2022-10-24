@@ -6,7 +6,7 @@ import kr.onthelive.silver.dtos.AuthIdDto;
 import kr.onthelive.silver.dtos.LoginPageDtos.ResultDto;
 import kr.onthelive.silver.entities.Account;
 import kr.onthelive.silver.entities.profile.OrganizationMember;
-import kr.onthelive.silver.entities.profile.OrganizationMemberListDto;
+import kr.onthelive.silver.dtos.profileDtos.OrganizationMemberListDto;
 import kr.onthelive.silver.mappers.profileMappers.OrganizationMemberMapper;
 import kr.onthelive.silver.repositories.AccountRepository;
 import kr.onthelive.silver.repositories.profileRepository.OrganizationMemberRepository;
@@ -14,7 +14,6 @@ import lombok.Data;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 @Data
@@ -38,7 +37,7 @@ public class OrganizationMemberListController {
         Account searchedAccount = new Account();
 //        OrganizationMember searchedOrganization = new OrganizationMember();
 
-        searchedAccount = accountRepository.findByUserId(organizationMemberListDto.getAccount().getUserId());
+        searchedAccount = accountRepository.findByAccountId(organizationMemberListDto.getAccount().getAccountId());
         if (searchedAccount == null) {
             OrganizationMember organizationMember;
             organizationMember = organizationMemberMapper.organizationMemberListDtoToOrganizationMember(organizationMemberListDto);
@@ -57,7 +56,7 @@ public class OrganizationMemberListController {
     public ResultDto updateMemberAccount(@RequestBody @NonNull OrganizationMemberListDto organizationMemberListDto){
         ResultDto resultDto = new ResultDto();
         OrganizationMember organizationMember ;
-        organizationMember = organizationMemberRepository.findOrganizationMemberByAccount_UserId(organizationMemberListDto.getAccount().getUserId());
+        organizationMember = organizationMemberRepository.findOrganizationMemberByAccount_AccountId(organizationMemberListDto.getAccount().getAccountId());
         if ( organizationMember != null && organizationMember.getAccount().getAccountUseFlag().equals(true)) {
             organizationMemberRepository.save(organizationMemberMapper.updateOrganizationMemberFromOrganizationMemberListDto(organizationMemberListDto, organizationMember));
             resultDto.setResult("success");
@@ -73,25 +72,28 @@ public class OrganizationMemberListController {
 //        Account account = accountRepository.findByUserId(authIdDto.getUserId());
         OrganizationMember organizationMember;
         OrganizationMemberListDto organizationMemberListDto;
-        System.out.println(authIdDto.getUserId());
+        System.out.println(authIdDto.getAccountId());
         System.out.println(authIdDto);
-        organizationMember = organizationMemberRepository.findOrganizationMemberByAccount_UserId(authIdDto.getUserId());
+        organizationMember = organizationMemberRepository.findOrganizationMemberByAccount_AccountId(authIdDto.getAccountId());
 
 
         if (organizationMember != null) {
             organizationMemberListDto = organizationMemberMapper.organizationMemberToOrganizationMemberListDto(organizationMember);
+            organizationMemberListDto.setResult("success");
             return organizationMemberListDto;
         } else {
-            return null;
+            OrganizationMemberListDto organizationMemberListDto1 = new OrganizationMemberListDto();
+            organizationMemberListDto1.setResult("failed");
+            return organizationMemberListDto1;
         }
     }
 
     @PostMapping("/memberaccount/delete")
     public ResultDto deleteMemberAccount(@RequestBody @NonNull AuthIdDto authIdDto){
-        OrganizationMember organizationMember = organizationMemberRepository.findOrganizationMemberByAccount_UserId(authIdDto.getUserId());
+        OrganizationMember organizationMember = organizationMemberRepository.findOrganizationMemberByAccount_AccountId(authIdDto.getAccountId());
         ResultDto resultDto = new ResultDto();
         if (organizationMember != null ){
-        Account account = accountRepository.findByUserId(organizationMember.getAccount().getUserId());
+        Account account = accountRepository.findByAccountId(organizationMember.getAccount().getAccountId());
         account.setAccountUseFlag(false);
         accountRepository.save(account);
         resultDto.setResult("success");

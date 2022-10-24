@@ -67,4 +67,13 @@ jar {
 	}
 }
 
+bootJar {
+	archiveBaseName = 'manifest_control_example'
+	manifest {
+		attributes(
+				"Application-Version" : "1.0.0"
+		)
+	}
+}
+
 

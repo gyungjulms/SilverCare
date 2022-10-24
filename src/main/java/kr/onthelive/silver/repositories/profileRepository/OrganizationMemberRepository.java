@@ -5,5 +5,5 @@ import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OrganizationMemberRepository extends JpaRepository<OrganizationMember, Long> {
-    OrganizationMember findOrganizationMemberByAccount_UserId(@NonNull String userId);
+    OrganizationMember findOrganizationMemberByAccount_AccountId(@NonNull String userId);
 }

@@ -1,13 +1,18 @@
 package kr.onthelive.silver.dtos;
 
-import lombok.Data;
+import lombok.*;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 
 /**
  * A DTO for the {@link kr.onthelive.silver.entities.Account} entity
  */
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Component
 public class AuthIdDto implements Serializable {
-    private String userId;
+    private String accountId;
 }

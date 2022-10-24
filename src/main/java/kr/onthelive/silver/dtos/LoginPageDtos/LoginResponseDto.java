@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Component
 public class LoginResponseDto implements Serializable {
     private int id;
-    private String userId;
+    private String accountId;
     private String accountRole;
     private String accountName;
     private String jwtToken;
