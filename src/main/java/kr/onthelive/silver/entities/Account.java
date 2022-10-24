@@ -1,5 +1,6 @@
 package kr.onthelive.silver.entities;
 
+import kr.onthelive.silver.entities.profile.OrganizationMember;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,8 +20,8 @@ public class Account {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "account_id", nullable = false)
-    private String accountId;
+    @Column(name = "user_id", nullable = false)
+    private String userId;
 
     @Column(name = "account_password", nullable = false)
     private String accountPassword;
@@ -35,5 +36,8 @@ public class Account {
     @Builder.Default
     @Column(name = "account_use_flag")
     private Boolean accountUseFlag = true;
+
+    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    private OrganizationMember organizationMember;
 
 }

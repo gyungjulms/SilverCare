@@ -5,7 +5,6 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-
 @Data
 public class deviceListDto implements Serializable {
     public int id;

@@ -14,6 +14,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Component
 public class LoginDto implements Serializable {
-    private String accountId;
+    private String userId;
     private String accountPassword;
 }
