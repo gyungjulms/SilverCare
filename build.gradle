@@ -63,7 +63,7 @@ tasks.named('test') {
 
 jar {
 	manifest {
-		attributes 'Main-Class': 'kr.onthelive.silver.JpasilverApplication'
+		attributes 'Main-Class': 'kr.onthelive.silver.SilverCareApplication'
 	}
 }
 

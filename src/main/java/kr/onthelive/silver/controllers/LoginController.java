@@ -35,23 +35,23 @@ public class LoginController {
 //        AccountDto accountDto = new AccountDto();
         Account account = accountRepository.findByAccountId(loginDto.getAccountId());
         LoginResponseDto loginResponseDto = new LoginResponseDto();
+
         if (account == null) {
             loginResponseDto.setResult("Not found Id");
             return loginResponseDto;
         }
-
-        if (account.getAccountId().equals(loginDto.getAccountId()) &&
-                account.getAccountPassword().equals(loginDto.getAccountPassword()))
-        {
+        else if (account.getAccountPassword().equals(loginDto.getAccountPassword())) {
             loginResponseDto = loginResponseMapper.accountToLoginResponseDto(account);
             loginResponseDto.setJwtToken(JwtTokenProvider.generateToken(account.getAccountId(),account.getAccountRole()));
             loginResponseDto.setResult("success");
             return loginResponseDto;
-        } else {
+        }
+        else {
             loginResponseDto.setResult("Not found password");
             System.out.println("로그인 실패했노 ...");
             return loginResponseDto;
         }
+
     }
 
 
